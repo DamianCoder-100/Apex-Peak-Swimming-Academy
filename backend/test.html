@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Test</title>
+</head>
+<body>
+
+    <h1>Apex Peak Backend Test</h1>
+
+    <button id="testButton">Send Test Data</button>
+    <button id="registrationButton">Save Test Registration</button>
+    <button id="realRegistrationButton">Test Real Registration</button>
+
+    <script>
+        document
+            .getElementById("testButton")
+            .addEventListener("click", async () => {
+
+                const response = await fetch("http://localhost:5000/api/test", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: "Damian",
+                        message: "Hello from Apex Peak!"
+                    })
+                });
+
+                const data = await response.json();
+
+                console.log(data);
+                alert(data.message);
+            });
+
+
+            document
+    .getElementById("registrationButton")
+    .addEventListener("click", async () => {
+
+        const response = await fetch("http://localhost:5000/api/test-registration", {
+            method: "POST"
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+        alert(data.message);
+    });
+
+
+    document
+    .getElementById("realRegistrationButton")
+    .addEventListener("click", async () => {
+
+        const response = await fetch("http://localhost:5000/api/registrations", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                participant_type: "Adult",
+                full_name: "Real Test User",
+                date_of_birth: "1990-01-01",
+                age: 36,
+                gender: "Male"
+            })
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+        alert(data.message);
+    });
+    </script>
+
+</body>
+</html>

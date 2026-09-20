@@ -1,0 +1,315 @@
+/* =========================================================
+   APEX PEAK SWIMMING ACADEMY
+   HEADER / NAVBAR STYLES
+   ========================================================= */
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.site-header {
+    background: var(--color-navy);
+}
+
+#navbar-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.site-header .navbar {
+    min-height: 82px;
+    padding: 0.85rem 0;
+    background: var(--color-navy);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* Keep Bootstrap container aligned properly */
+
+.site-header .container {
+    position: relative;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.site-header .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-right: 2rem;
+    padding: 0;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.site-header .navbar-brand:hover {
+    color: var(--color-white);
+}
+
+
+/* Brand water icon */
+
+.brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        var(--color-ocean),
+        var(--color-turquoise)
+    );
+    color: var(--color-white);
+    font-size: 1.35rem;
+    box-shadow: 0 6px 18px rgba(0, 194, 203, 0.25);
+    transition: var(--transition);
+}
+
+.site-header .navbar-brand:hover .brand-icon {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 194, 203, 0.35);
+}
+
+
+/* Brand text container */
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.1;
+}
+
+.brand-text strong {
+    display: block;
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.brand-text small {
+    display: block;
+    margin-top: 0.2rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+   ========================================================= */
+
+.site-header .navbar-nav {
+    gap: 0.3rem;
+}
+
+.site-header .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0.65rem 0.85rem !important;
+    color: rgba(255, 255, 255, 0.78) !important;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.site-header .nav-link:hover,
+.site-header .nav-link:focus {
+    color: var(--color-white) !important;
+}
+
+
+/* Animated underline */
+
+.site-header .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.3rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-turquoise);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: var(--transition);
+}
+
+.site-header .nav-link:hover::after,
+.site-header .nav-link:focus::after,
+.site-header .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+
+/* Active link */
+
+.site-header .nav-link.active {
+    color: var(--color-white) !important;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   BOOK AN ASSESSMENT BUTTON
+   ========================================================= */
+
+.nav-cta-item {
+    margin-left: 0.75rem;
+}
+
+.site-header .btn-navbar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.7rem 1.15rem;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    background: var(--color-turquoise);
+    color: var(--color-navy);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(0, 194, 203, 0.18);
+    transition: var(--transition);
+}
+
+.site-header .btn-navbar i {
+    font-size: 0.95rem;
+    transition: transform 0.3s ease;
+}
+
+.site-header .btn-navbar:hover {
+    background: var(--color-white);
+    color: var(--color-navy);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 194, 203, 0.28);
+}
+
+.site-header .btn-navbar:hover i {
+    transform: translateX(3px);
+}
+
+.site-header .btn-navbar:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.65);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   MOBILE NAVBAR TOGGLER
+   ========================================================= */
+
+.site-header .navbar-toggler {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+}
+
+.site-header .navbar-toggler:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.site-header .navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(0, 194, 203, 0.25);
+}
+
+
+/* Bootstrap hamburger icon */
+
+.site-header .navbar-toggler-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+}
+
+@media (min-width: 992px) {
+    .site-header .navbar-toggler {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   NAVBAR COLLAPSE
+   ========================================================= */
+
+.site-header .navbar-collapse {
+    align-items: center;
+}
+
+
+/* =========================================================
+   HEADER SCROLLED STATE
+   Added by Main.js when page is scrolled
+   ========================================================= */
+
+.site-header.scrolled {
+    box-shadow: 0 8px 25px rgba(4, 28, 44, 0.18);
+}
+
+.site-header.scrolled .navbar {
+    min-height: 72px;
+    background: rgba(6, 40, 61, 0.98);
+    box-shadow: 0 4px 20px rgba(4, 28, 44, 0.12);
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+.site-header a:focus-visible,
+.site-header button:focus-visible {
+    outline: 3px solid rgba(0, 194, 203, 0.7);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .site-header *,
+    .site-header *::before,
+    .site-header *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
