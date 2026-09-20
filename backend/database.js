@@ -8,6 +8,7 @@ db.exec(`
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         status TEXT DEFAULT 'pending',
+        reference_number TEXT UNIQUE,
 
         participant_type TEXT,
         swimmer_photo TEXT,
@@ -50,4 +51,12 @@ db.exec(`
         today_date TEXT
     )
 `);
+
+const registrationColumns = db.prepare("PRAGMA table_info(registrations)").all();
+const hasReferenceNumberColumn = registrationColumns.some((column) => column.name === "reference_number");
+
+if (!hasReferenceNumberColumn) {
+    db.exec("ALTER TABLE registrations ADD COLUMN reference_number TEXT");
+}
+
 module.exports = db;

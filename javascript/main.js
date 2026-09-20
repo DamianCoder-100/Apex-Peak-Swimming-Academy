@@ -359,11 +359,21 @@ async function submitRegistrationForm(event) {
         }
 
         form.reset();
-        showFormAlert(form, data.message || "Registration submitted successfully!");
 
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 1200);
+        const referenceNumber = data.reference_number || "";
+        const successMessage = referenceNumber
+            ? `Registration Submitted Successfully!<br><strong>Your Registration Reference Number: ${referenceNumber}</strong><br>Please save this reference number. You will need it to view or make changes to your registration later.`
+            : (data.message || "Registration submitted successfully!");
+
+        const existingAlert = form.parentElement.querySelector(".form-status-alert");
+        if (existingAlert) {
+            existingAlert.remove();
+        }
+
+        const alert = document.createElement("div");
+        alert.className = "alert form-status-alert alert-success mt-3";
+        alert.innerHTML = successMessage;
+        form.parentElement.insertBefore(alert, form.nextSibling);
     } catch (error) {
         console.error(error);
         showFormAlert(form, "There was a problem submitting your registration. Please try again.", "error");

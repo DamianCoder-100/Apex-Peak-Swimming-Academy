@@ -242,6 +242,32 @@ app.post("/api/registrations", (req, res) => {
         today_date: body.today_date || ""
     };
 
+    const year = new Date().getFullYear();
+    const latestReference = db.prepare(`
+        SELECT reference_number
+        FROM registrations
+        WHERE reference_number LIKE ?
+        ORDER BY id DESC
+        LIMIT 1
+    `).get(`APEX-${year}-%`);
+
+    let nextNumber = 1;
+    if (latestReference && latestReference.reference_number) {
+        const match = latestReference.reference_number.match(/(\d+)$/);
+        if (match) {
+            nextNumber = Number(match[1]) + 1;
+        }
+    }
+
+    let referenceNumber = `APEX-${year}-${String(nextNumber).padStart(4, "0")}`;
+    let existingReference = db.prepare("SELECT id FROM registrations WHERE reference_number = ?").get(referenceNumber);
+
+    while (existingReference) {
+        nextNumber += 1;
+        referenceNumber = `APEX-${year}-${String(nextNumber).padStart(4, "0")}`;
+        existingReference = db.prepare("SELECT id FROM registrations WHERE reference_number = ?").get(referenceNumber);
+    }
+
     const insertRegistration = db.prepare(`
         INSERT INTO registrations (
             participant_type,
@@ -277,9 +303,10 @@ app.post("/api/registrations", (req, res) => {
             program_policies,
             declaration_agree,
             parent_signature,
-            today_date
+            today_date,
+            reference_number
         ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )
     `);
 
@@ -317,13 +344,15 @@ app.post("/api/registrations", (req, res) => {
         payload.program_policies,
         payload.declaration_agree,
         payload.parent_signature,
-        payload.today_date
+        payload.today_date,
+        referenceNumber
     ];
 
     insertRegistration.run(registrationValues);
 
     res.status(201).json({
-        message: "Registration saved successfully!"
+        message: "Registration saved successfully!",
+        reference_number: referenceNumber
     });
 });
 
